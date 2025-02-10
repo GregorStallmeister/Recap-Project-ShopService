@@ -1,7 +1,7 @@
 import java.math.BigDecimal;
 
 public record Product(
-        int ean,
+        long ean,
         String productName,
         String manufacturer,
         String scale,

@@ -74,4 +74,28 @@ public class ProductRepoTest {
         // then
         assertEquals(expectedSize, actualSize);
     }
+
+    @Test
+    public void ProductRepoExpectedSizeFirst1Then0WhenSameProductAddedByEanEntryStringAndRemovedByEan() {
+        // given
+        ProductRepo productRepo = new ProductRepo();
+        String eanListEntry = "4023222992300, \"Märklin Electric Locomotive\", \"Märklin\", \"HO\", \"Locomotive\", " +
+                "\"Electric locomotive with sound\", 349.99, 2022";
+        int expectedSize = 1;
+
+        // when
+        productRepo.addProduct(eanListEntry);
+        int actualSize = productRepo.size();
+
+        // then
+        assertEquals(expectedSize, actualSize);
+
+        // when
+        productRepo.removeProduct(Long.valueOf("4023222992300"));
+        expectedSize = 0;
+        actualSize = productRepo.size();
+
+        // then
+        assertEquals(expectedSize, actualSize);
+    }
 }

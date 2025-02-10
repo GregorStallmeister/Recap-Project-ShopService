@@ -1,8 +1,10 @@
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ProductRepoTest {
 
@@ -97,5 +99,29 @@ public class ProductRepoTest {
 
         // then
         assertEquals(expectedSize, actualSize);
+    }
+
+    @Test
+    public  void ProductRepoExpectedProductsContainedInListByGetAllProductsWhenAdded() {
+        // given
+        ProductRepo productRepo = new ProductRepo();
+        String eanListEntry1 = "4023222992300, \"Märklin Electric Locomotive\", \"Märklin\", \"HO\", \"Locomotive\", " +
+                "\"Electric locomotive with sound\", 349.99, 2022";
+        String eanListEntry2 = "4005245310198, \"Märklin Starter Set\", \"Märklin\", \"HO\", \"Train Set\", " +
+                "\"Complete starter set with controller and track\", 399.99, 2023";
+        List<Product> actualProductList;
+        Product product1;
+        Product product2;
+
+        // when
+        productRepo.addProduct(eanListEntry1);
+        productRepo.addProduct(eanListEntry2);
+        product1 = productRepo.getProduct(Long.valueOf("4023222992300"));
+        product2 = productRepo.getProduct(Long.valueOf("4005245310198"));
+        actualProductList = productRepo.getAllProducts();
+
+        // then
+        assertTrue(actualProductList.contains(product1));
+        assertTrue(actualProductList.contains(product2));
     }
 }

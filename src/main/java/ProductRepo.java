@@ -47,6 +47,10 @@ public class ProductRepo {
         return returnProduct;
     }
 
+    public List<Product> getAllProducts() {
+        return products;
+    }
+
     public void removeProduct(long ean) {
         Product productToBeRemoved = null;
 

@@ -39,4 +39,39 @@ public class ProductRepoTest {
         // then
         assertEquals(expectedSize, actualSize);
     }
+
+    @Test
+    public void ProductRepoExpectedProductContainedWhenAddedByEanEntryString() {
+        // given
+        ProductRepo productRepo = new ProductRepo();
+        String eanListEntry = "4023222992300, \"Märklin Electric Locomotive\", \"Märklin\", \"HO\", \"Locomotive\", " +
+                "\"Electric locomotive with sound\", 349.99, 2022";
+        Product product = new Product(Long.valueOf("4023222992300"), "Märklin Electric Locomotive",
+                "Märklin", "HO", "Locomotive",
+                "Electric locomotive with sound", BigDecimal.valueOf(349.99), 2022);
+
+        // when
+        productRepo.addProduct(eanListEntry);
+        Product actual = productRepo.getProduct(Long.valueOf("4023222992300"));
+
+        // then
+        assertEquals(product, actual);
+    }
+
+    @Test
+    public void ProductRepoExpectedSize1WhenSameProductAddedTwiceByEanEntryString() {
+        // given
+        ProductRepo productRepo = new ProductRepo();
+        String eanListEntry = "4023222992300, \"Märklin Electric Locomotive\", \"Märklin\", \"HO\", \"Locomotive\", " +
+                "\"Electric locomotive with sound\", 349.99, 2022";
+        int expectedSize = 1;
+
+        // when
+        productRepo.addProduct(eanListEntry);
+        productRepo.addProduct(eanListEntry);
+        int actualSize = productRepo.size();
+
+        // then
+        assertEquals(expectedSize, actualSize);
+    }
 }

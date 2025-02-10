@@ -10,4 +10,14 @@ public record Product(
         BigDecimal price,
         int releaseYear
 ) {
+
+//    public Product(String eanListEntry) {
+//
+//
+//        this(0, null, null, null, null, null, null, 0);
+//
+//
+//        String[] listEntryParts = eanListEntry.split(",");
+//
+//    }
 }

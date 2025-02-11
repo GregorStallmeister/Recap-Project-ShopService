@@ -1,6 +1,9 @@
+import java.util.HashMap;
+
 public record Order(
         int id,
-        Product product,
-        int quantity
+        HashMap<Product, Integer> productQuantityHashMap
+//        Product product,
+//        int quantity
 ) {
 }

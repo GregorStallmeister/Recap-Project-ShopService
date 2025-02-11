@@ -2,6 +2,7 @@ import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -13,14 +14,18 @@ public class OrderListRepoTest {
     public void OrderListRepoExpectedOrderExistsWhenAdded() {
         // given
         OrderListRepo orderListRepo = new OrderListRepo();
-        int id = 0;
-        Order order = new Order(id, new Product(Long.valueOf("4023222992300"), "Märklin Electric Locomotive",
+        int orderID = 0;
+        Product product = new Product(Long.valueOf("4023222992300"), "Märklin Electric Locomotive",
                 "Märklin", "HO", "Locomotive",
-                "Electric locomotive with sound", BigDecimal.valueOf(349.99), 2022), 12);
+                "Electric locomotive with sound", BigDecimal.valueOf(349.99), 2022);
+        int quantity = 12;
+        HashMap<Product, Integer> productIntegerHashMap = new HashMap<Product, Integer>();
+        productIntegerHashMap.put(product, quantity);
+        Order order = new Order(orderID, productIntegerHashMap);
 
         // when
         orderListRepo.add(order);
-        Order orderActual = orderListRepo.getOrder(id);
+        Order orderActual = orderListRepo.getOrder(orderID);
 
         // then
         assertEquals(order, orderActual);
@@ -30,9 +35,13 @@ public class OrderListRepoTest {
     public void OrderListRepoExpectedSize1WhenSameOrderAddedTwice() {
         // given
         OrderListRepo orderListRepo = new OrderListRepo();
-        Order order = new Order(0, new Product(Long.valueOf("4023222992300"), "Märklin Electric Locomotive",
+        Product product = new Product(Long.valueOf("4023222992300"), "Märklin Electric Locomotive",
                 "Märklin", "HO", "Locomotive",
-                "Electric locomotive with sound", BigDecimal.valueOf(349.99), 2022), 12);
+                "Electric locomotive with sound", BigDecimal.valueOf(349.99), 2022);
+        int quantity = 12;
+        HashMap<Product, Integer> productIntegerHashMap = new HashMap<Product, Integer>();
+        productIntegerHashMap.put(product, quantity);
+        Order order = new Order(0, productIntegerHashMap);
         int expectedSize = 1;
 
         // when
@@ -48,9 +57,13 @@ public class OrderListRepoTest {
     public void OrderListRepoExpectedOrderContainedInListByGetAllOrders() {
         // given
         OrderListRepo orderListRepo = new OrderListRepo();
-        Order order = new Order(0, new Product(Long.valueOf("4023222992300"), "Märklin Electric Locomotive",
+        Product product = new Product(Long.valueOf("4023222992300"), "Märklin Electric Locomotive",
                 "Märklin", "HO", "Locomotive",
-                "Electric locomotive with sound", BigDecimal.valueOf(349.99), 2022), 12);
+                "Electric locomotive with sound", BigDecimal.valueOf(349.99), 2022);
+        int quantity = 12;
+        HashMap<Product, Integer> productIntegerHashMap = new HashMap<Product, Integer>();
+        productIntegerHashMap.put(product, quantity);
+        Order order = new Order(0, productIntegerHashMap);
         orderListRepo.add(order);
 
         // when
@@ -64,10 +77,14 @@ public class OrderListRepoTest {
     public void OrderListRepoExpectedSize1WhenOrderAdded0WhenOrderRemoved() {
         // given
         OrderListRepo orderListRepo = new OrderListRepo();
-        int id = 0;
-        Order order = new Order(id, new Product(Long.valueOf("4023222992300"), "Märklin Electric Locomotive",
+        int orderID = 0;
+        Product product = new Product(Long.valueOf("4023222992300"), "Märklin Electric Locomotive",
                 "Märklin", "HO", "Locomotive",
-                "Electric locomotive with sound", BigDecimal.valueOf(349.99), 2022), 12);
+                "Electric locomotive with sound", BigDecimal.valueOf(349.99), 2022);
+        int quantity = 12;
+        HashMap<Product, Integer> productIntegerHashMap = new HashMap<Product, Integer>();
+        productIntegerHashMap.put(product, quantity);
+        Order order = new Order(orderID, productIntegerHashMap);
         int expectedSize = 1;
 
         // when
@@ -81,7 +98,7 @@ public class OrderListRepoTest {
         expectedSize = 0;
 
         // when
-        orderListRepo.removeOrder(id);
+        orderListRepo.removeOrder(orderID);
         actualSize = orderListRepo.size();
 
         // then

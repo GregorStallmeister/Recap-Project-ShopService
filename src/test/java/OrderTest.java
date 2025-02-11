@@ -1,6 +1,7 @@
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
+import java.util.HashMap;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -14,13 +15,14 @@ public class OrderTest {
                 "Märklin", "HO", "Locomotive",
                 "Electric locomotive with sound", BigDecimal.valueOf(349.99), 2022);
         int quantity = 12;
+        HashMap<Product, Integer> productIntegerHashMap = new HashMap<Product, Integer>();
+        productIntegerHashMap.put(product, quantity);
 
         // when
-        Order order = new Order(orderID, product, quantity);
+        Order order = new Order(orderID, productIntegerHashMap);
 
         // then
         assertEquals(orderID, order.id());
-        assertEquals(product, order.product());
-        assertEquals(quantity, order.quantity());
+        assertEquals(productIntegerHashMap, order.productQuantityHashMap());
     }
 }

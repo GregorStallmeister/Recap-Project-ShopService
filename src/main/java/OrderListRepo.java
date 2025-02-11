@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class OrderListRepo {
+public class OrderListRepo implements OrderRepo {
 
     protected List<Order> orders;
 
@@ -10,6 +10,7 @@ public class OrderListRepo {
         orders = new ArrayList<Order>();
     }
 
+    @Override
     public void add(Order order) {
         boolean orderExists = false;
 
@@ -24,6 +25,7 @@ public class OrderListRepo {
             orders.add(order);
     }
 
+    @Override
     public Order getOrder(int id) {
         Order returnOrder = null;
 
@@ -37,10 +39,12 @@ public class OrderListRepo {
         return returnOrder;
     }
 
+    @Override
     public List<Order> getAllOrders() {
         return orders;
     }
 
+    @Override
     public void removeOrder(int id) {
         Order orderToBeRemoved = null;
 
@@ -55,6 +59,7 @@ public class OrderListRepo {
             orders.remove(orderToBeRemoved);
     }
 
+    @Override
     public int size() {
         return orders.size();
     }

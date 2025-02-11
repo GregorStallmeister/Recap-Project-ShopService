@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 public class ShopService {
 
-    protected OrderListRepo orderRepo;
+    protected OrderRepo orderRepo;
     protected ProductRepo productRepo;
 
     public ShopService() {
@@ -14,7 +14,7 @@ public class ShopService {
         fillProductRepo();
     }
 
-    public ShopService(OrderListRepo orderRepo) {
+    public ShopService(OrderRepo orderRepo) {
         this();
 
         this.orderRepo = orderRepo;

@@ -2,7 +2,8 @@ import java.util.HashMap;
 
 public class Main {
     public static void main(String[] args) {
-        OrderListRepo orderRepo = new OrderListRepo();
+//        OrderListRepo orderRepo = new OrderListRepo();
+        OrderMapRepo orderRepo = new OrderMapRepo();
         ShopService shopService = new ShopService(orderRepo);
 
         HashMap<Long, Integer> orderItems = new HashMap<Long, Integer>();

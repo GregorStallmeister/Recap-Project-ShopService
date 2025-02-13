@@ -87,7 +87,15 @@ public class Main {
                 System.out.println("Product does not exist!");
         }
 
-        shopService.placeOrder(shopService.orderRepo.size(), productIntegerHashMap);
+        if (productIntegerHashMap.size() > 0) {
+            int id = shopService.placeOrder(productIntegerHashMap);
+            System.out.println();
+            System.out.println("Your order has been placed successfully. Your oder id is: " + id);
+        }
+        else {
+            System.out.println();
+            System.out.println("Nothing ordered.");
+        }
     }
 
     public static void seeAllOrders() {

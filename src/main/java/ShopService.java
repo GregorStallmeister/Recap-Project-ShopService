@@ -1,6 +1,8 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.net.URL;
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Optional;
 import java.util.Scanner;
@@ -21,7 +23,7 @@ public class ShopService {
         this.orderRepo = orderRepo;
     }
 
-    public void placeOrder(int id, HashMap<Long, Integer> productEanQuantity) {
+    public int placeOrder(HashMap<Long, Integer> productEanQuantity) {
         HashMap<Product, Integer> productIntegerHashMap = new HashMap<Product, Integer>();
 
         for (Long productEan : productEanQuantity.keySet()) {
@@ -36,8 +38,13 @@ public class ShopService {
             }
         }
 
+        int id = Integer.valueOf("" + LocalDateTime.now().getDayOfYear() + LocalDateTime.now().getHour()
+                + "" + LocalDateTime.now().getMinute() + "" + LocalDateTime.now().getSecond());
+
         Order order = new Order(id, productIntegerHashMap);
         orderRepo.add(order);
+
+        return id;
     }
 
     private void fillProductRepo() {

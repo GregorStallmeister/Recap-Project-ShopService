@@ -43,7 +43,7 @@ public class ProductRepo {
             if (product.ean() == ean) {
 //                returnProduct = product;
 //                break;
-                return Optional.of(product)
+                return Optional.of(product);
             }
         }
 

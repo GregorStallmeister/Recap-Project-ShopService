@@ -2,6 +2,7 @@ import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -18,10 +19,10 @@ public class ProductRepoTest {
 
         // when
         productRepo.addProduct(product);
-        Product actual = productRepo.getProduct(Long.valueOf("4023222992300"));
+        Optional<Product> actual = productRepo.getProduct(Long.valueOf("4023222992300"));
 
         // then
-        assertEquals(product, actual);
+        assertEquals(product, actual.get());
     }
 
     @Test
@@ -54,10 +55,10 @@ public class ProductRepoTest {
 
         // when
         productRepo.addProduct(eanListEntry);
-        Product actual = productRepo.getProduct(Long.valueOf("4023222992300"));
+        Optional<Product> actual = productRepo.getProduct(Long.valueOf("4023222992300"));
 
         // then
-        assertEquals(product, actual);
+        assertEquals(product, actual.get());
     }
 
     @Test

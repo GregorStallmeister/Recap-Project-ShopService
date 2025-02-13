@@ -54,7 +54,7 @@ public class Main {
         String productEan = "";
         int quantity = 0;
         Scanner userInputScanner = new Scanner(System.in);
-        HashMap<Product, Integer> productIntegerHashMap = new HashMap<Product, Integer>();
+        HashMap<Long, Integer> productIntegerHashMap = new HashMap<Long, Integer>();
 
         while (!productEan.equals(("f"))) {
             System.out.println();
@@ -67,7 +67,7 @@ public class Main {
                 Optional<Product> product = shopService.productRepo.getProduct(Long.valueOf(productEan));
 
                 if (product.isPresent())
-                    productIntegerHashMap.put(product.get(), quantity);                }
+                    productIntegerHashMap.put(product.get().ean(), quantity);                }
                 else
                     System.out.println("Product does not exist!");
             }

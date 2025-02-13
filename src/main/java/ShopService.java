@@ -2,6 +2,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.net.URL;
 import java.util.HashMap;
+import java.util.Optional;
 import java.util.Scanner;
 
 public class ShopService {
@@ -24,11 +25,11 @@ public class ShopService {
         HashMap<Product, Integer> productIntegerHashMap = new HashMap<Product, Integer>();
 
         for (Long productEan : productEanQuantity.keySet()) {
-            Product product = null;
-            product = productRepo.getProduct(productEan);
+//            Product product = null;
+            Optional<Product> product = productRepo.getProduct(productEan);
 
-            if (product != null) {
-                productIntegerHashMap.put(product, productEanQuantity.get(productEan));
+            if (product.isPresent()) {
+                productIntegerHashMap.put(product.get(), productEanQuantity.get(productEan));
             }
             else {
                 System.out.println("Product " + productEan + " does not exist!");

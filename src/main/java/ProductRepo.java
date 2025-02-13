@@ -1,6 +1,8 @@
+import javax.swing.text.html.Option;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class ProductRepo {
 
@@ -11,14 +13,14 @@ public class ProductRepo {
     }
 
     public void addProduct(Product product) {
-        if (getProduct(product.ean()) == null)
+        if (getProduct(product.ean()).isEmpty())
             products.add(product);
     }
 
     public void addProduct(String eanListEntry) {
         String[] listEntryParts = eanListEntry.split(",");
 
-        if (getProduct(Long.valueOf("" + listEntryParts[0])) != null)
+        if (getProduct(Long.valueOf("" + listEntryParts[0])).isPresent())
             return;
 
         long ean = Long.valueOf("" + listEntryParts[0]);
@@ -34,17 +36,19 @@ public class ProductRepo {
         products.add(product);
     }
 
-    public Product getProduct(long ean) {
-        Product returnProduct = null;
+    public Optional<Product> getProduct(long ean) {
+//        Product returnProduct = null;
 
         for (Product product : products) {
             if (product.ean() == ean) {
-                returnProduct = product;
-                break;
+//                returnProduct = product;
+//                break;
+                return Optional.of(product);
             }
         }
 
-        return returnProduct;
+//        return returnProduct;
+        return  Optional.empty();
     }
 
     public List<Product> getAllProducts() {

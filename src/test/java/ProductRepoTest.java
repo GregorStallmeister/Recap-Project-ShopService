@@ -2,6 +2,7 @@ import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -18,10 +19,10 @@ public class ProductRepoTest {
 
         // when
         productRepo.addProduct(product);
-        Product actual = productRepo.getProduct(Long.valueOf("4023222992300"));
+        Optional<Product> actual = productRepo.getProduct(Long.valueOf("4023222992300"));
 
         // then
-        assertEquals(product, actual);
+        assertEquals(product, actual.get());
     }
 
     @Test
@@ -54,10 +55,10 @@ public class ProductRepoTest {
 
         // when
         productRepo.addProduct(eanListEntry);
-        Product actual = productRepo.getProduct(Long.valueOf("4023222992300"));
+        Optional<Product> actual = productRepo.getProduct(Long.valueOf("4023222992300"));
 
         // then
-        assertEquals(product, actual);
+        assertEquals(product, actual.get());
     }
 
     @Test
@@ -110,8 +111,8 @@ public class ProductRepoTest {
         String eanListEntry2 = "4005245310198, \"Märklin Starter Set\", \"Märklin\", \"HO\", \"Train Set\", " +
                 "\"Complete starter set with controller and track\", 399.99, 2023";
         List<Product> actualProductList;
-        Product product1;
-        Product product2;
+        Optional<Product> product1;
+        Optional<Product> product2;
 
         // when
         productRepo.addProduct(eanListEntry1);
@@ -121,7 +122,7 @@ public class ProductRepoTest {
         actualProductList = productRepo.getAllProducts();
 
         // then
-        assertTrue(actualProductList.contains(product1));
-        assertTrue(actualProductList.contains(product2));
+        assertTrue(actualProductList.contains(product1.get()));
+        assertTrue(actualProductList.contains(product2.get()));
     }
 }

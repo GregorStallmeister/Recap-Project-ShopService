@@ -17,7 +17,7 @@ public class Main {
 //
 //        System.out.println(orderRepo.getAllOrders().toString().replaceAll(",", ",\n"));
 
-        System.out.println("Welcome to George's model railway shop!");
+        System.out.println("Welcome to George's tiny model railway shop!");
 
         while (!userInput.equals("q"))
         {

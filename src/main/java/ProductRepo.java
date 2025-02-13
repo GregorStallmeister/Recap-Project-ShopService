@@ -13,14 +13,14 @@ public class ProductRepo {
     }
 
     public void addProduct(Product product) {
-        if (getProduct(product.ean()) == null)
+        if (getProduct(product.ean()).isEmpty())
             products.add(product);
     }
 
     public void addProduct(String eanListEntry) {
         String[] listEntryParts = eanListEntry.split(",");
 
-        if (getProduct(Long.valueOf("" + listEntryParts[0])) != null)
+        if (getProduct(Long.valueOf("" + listEntryParts[0])).isPresent())
             return;
 
         long ean = Long.valueOf("" + listEntryParts[0]);

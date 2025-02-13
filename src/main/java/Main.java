@@ -1,5 +1,4 @@
 import java.util.HashMap;
-import java.util.Optional;
 import java.util.Scanner;
 
 public class Main {
@@ -20,7 +19,7 @@ public class Main {
 //
 //        System.out.println(orderRepo.getAllOrders().toString().replaceAll(",", ",\n"));
 
-        System.out.println("Welcome to George's little model railway shop!");
+        System.out.println("Welcome to George's tiny model railway shop!");
 
         while (!userInput.equals("q"))
         {
@@ -43,7 +42,7 @@ public class Main {
         }
 
         System.out.println();
-        System.out.println("Goodbye!");
+        System.out.println("Goodbye soon!");
     }
 
     static void printAllProducts() {

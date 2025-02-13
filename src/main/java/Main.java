@@ -84,7 +84,7 @@ public class Main {
                 if (product.isPresent())
                     productIntegerHashMap.put(product.get().ean(), quantity);
             } else
-                System.out.println("Product does not exist!");
+                System.out.println("Product does not exist! We are sorry and hope you find another good choice.");
         }
 
         shopService.placeOrder(shopService.orderRepo.size(), productIntegerHashMap);

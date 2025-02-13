@@ -22,8 +22,7 @@ public class Main {
 
         System.out.println("Welcome to George's tiny model railway shop!");
 
-        while (!userInput.equals("q"))
-        {
+        while (!userInput.equals("q")) {
             System.out.println();
             System.out.println("What do you want to do? You have uncountable possibilities in here!");
             System.out.println("Input p to see all products, o to place an order, s to see all orders, m to modify an order, r to remove an order.");
@@ -37,6 +36,18 @@ public class Main {
                     break;
                 case "p":
                     printAllProducts();
+                    break;
+                case "o":
+                    placeOrder();
+                    break;
+                case "s":
+                    seeAllOrders();
+                    break;
+                case "m":
+                    System.out.println("Not implemented - coming soon");
+                    break;
+                case "r":
+                    System.out.println("Not implemented - coming later");
                     break;
                 default:
             }
@@ -60,6 +71,10 @@ public class Main {
             System.out.println();
             System.out.println("Please enter the EAN of a product you want to order or f to finish your order");
             productEan = userInputScanner.nextLine();
+
+            if (productEan.equals("f"))
+                break;
+
             System.out.println("Please enter the quantity you want to order");
             quantity = Integer.valueOf(userInputScanner.nextLine());
 
@@ -67,12 +82,16 @@ public class Main {
                 Optional<Product> product = shopService.productRepo.getProduct(Long.valueOf(productEan));
 
                 if (product.isPresent())
-                    productIntegerHashMap.put(product.get().ean(), quantity);                }
-                else
-                    System.out.println("Product does not exist!");
-            }
+                    productIntegerHashMap.put(product.get().ean(), quantity);
+            } else
+                System.out.println("Product does not exist!");
+        }
 
         shopService.placeOrder(shopService.orderRepo.size(), productIntegerHashMap);
-        }
     }
+
+    public static void seeAllOrders() {
+        System.out.println(shopService.orderRepo.getAllOrders().toString().replaceAll("\\[", "\n["));
+    }
+}
 

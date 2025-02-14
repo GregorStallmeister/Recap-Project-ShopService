@@ -11,15 +11,6 @@ public class Main {
     public static void main(String[] args) {
         String userInput = "";
 
-//        HashMap<Long, Integer> orderItems = new HashMap<Long, Integer>();
-//        orderItems.put(Long.valueOf("4023222992300"), 3);
-//        orderItems.put(Long.valueOf("1023222992300"), 1);
-//        orderItems.put(Long.valueOf("4005245310198"), 12);
-//
-//        shopService.placeOrder(0, orderItems);
-//
-//        System.out.println(orderRepo.getAllOrders().toString().replaceAll(",", ",\n"));
-
         System.out.println("Welcome to George's tiny model railway shop!");
 
         while (!userInput.equals("q")) {
@@ -62,12 +53,12 @@ public class Main {
     }
 
     static void placeOrder() {
-        String productEan = "";
-        int quantity = 0;
+        String productEan;
+        int quantity;
         Scanner userInputScanner = new Scanner(System.in);
-        HashMap<Long, Integer> productIntegerHashMap = new HashMap<Long, Integer>();
+        HashMap<Long, Integer> productIntegerHashMap = new HashMap<>();
 
-        while (!productEan.equals(("f"))) {
+        while (true) {
             System.out.println();
             System.out.println("Please enter the EAN of a product you want to order or f to finish your order");
             productEan = userInputScanner.nextLine();
@@ -76,10 +67,10 @@ public class Main {
                 break;
 
             System.out.println("Please enter the quantity you want to order");
-            quantity = Integer.valueOf(userInputScanner.nextLine());
+            quantity = Integer.parseInt(userInputScanner.nextLine());
 
-            if (productEan != "" && quantity > 0) {
-                Optional<Product> product = shopService.productRepo.getProduct(Long.valueOf(productEan));
+            if (!productEan.isEmpty() && quantity > 0) {
+                Optional<Product> product = shopService.productRepo.getProduct(Long.parseLong(productEan));
 
                 if (product.isPresent())
                     productIntegerHashMap.put(product.get().ean(), quantity);
@@ -87,7 +78,7 @@ public class Main {
                 System.out.println("Product does not exist! We are sorry and hope you find another good choice.");
         }
 
-        if (productIntegerHashMap.size() > 0) {
+        if (!productIntegerHashMap.isEmpty()) {
             int id = shopService.placeOrder(productIntegerHashMap);
             System.out.println();
             System.out.println("Your order has been placed successfully. Your oder id is: " + id);

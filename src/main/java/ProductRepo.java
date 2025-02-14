@@ -56,14 +56,7 @@ public class ProductRepo {
     }
 
     public void removeProduct(long ean) {
-        Product productToBeRemoved = null;
-
-        for (Product product : products) {
-            if (product.ean() == ean) {
-                productToBeRemoved = product;
-                break;
-            }
-        }
+        Optional<Product> productToBeRemoved = getProduct(ean);
 
         if (productToBeRemoved != null)
             products.remove(productToBeRemoved);

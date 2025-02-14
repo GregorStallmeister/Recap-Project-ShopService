@@ -58,8 +58,7 @@ public class ProductRepo {
     public void removeProduct(long ean) {
         Optional<Product> productToBeRemoved = getProduct(ean);
 
-        if (productToBeRemoved != null)
-            products.remove(productToBeRemoved);
+        productToBeRemoved.ifPresent(product -> products.remove(product));
     }
 
     public int size() {

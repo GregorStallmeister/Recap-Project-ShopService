@@ -56,7 +56,7 @@ public class Main {
 
     static void placeOrder() {
         String productEan;
-        int quantity;
+        int quantity = 0;
         Scanner userInputScanner = new Scanner(System.in);
         HashMap<Long, Integer> productIntegerHashMap = new HashMap<>();
 
@@ -69,14 +69,27 @@ public class Main {
                 break;
 
             System.out.println("Please enter the quantity you want to order");
-            quantity = Integer.parseInt(userInputScanner.nextLine());
+            try {
+                quantity = Integer.parseInt(userInputScanner.nextLine());
+            } catch (NumberFormatException e) {
+                System.out.println("Error: " + e.getMessage()
+                    + "\nQuantity will be set to 0");
+            }
 
             if (!productEan.isEmpty() && quantity > 0) {
-                Optional<Product> product = shopService.productRepo.getProduct(Long.parseLong(productEan));
+                try {
+                    Optional<Product> product = shopService.productRepo.getProduct(Long.parseLong(productEan));
 
-                if (product.isPresent())
-                    productIntegerHashMap.put(product.get().ean(), quantity);
-            } else
+                    if (product.isPresent())
+                        productIntegerHashMap.put(product.get().ean(), quantity);
+
+                } catch (NumberFormatException e) {
+                    System.out.println("Error: " + e.getMessage());
+                }
+            }
+            else if (quantity == 0)
+                System.out.println("Nothing ordered");
+            else
                 System.out.println("Product does not exist! We are sorry and hope you find another good choice.");
         }
 
@@ -96,7 +109,17 @@ public class Main {
     }
 
     public static void deleteOrder() {
-        System.out.println("Pleas enter the ID of the order you would like to remove.");
+        Scanner scanner = new Scanner(System.in);
+        String userInput = "";
+
+        System.out.println("Please enter the ID of the order you would like to remove.");
+        userInput = scanner.nextLine();
+
+        try {
+            shopService.removeOrder(Integer.parseInt(userInput));
+        } catch (NumberFormatException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
     }
 }
 

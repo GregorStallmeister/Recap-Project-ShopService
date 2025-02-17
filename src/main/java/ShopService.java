@@ -47,6 +47,10 @@ public class ShopService {
         return id;
     }
 
+    public void removeOrder(int orderID) {
+        orderRepo.removeOrder(orderID);
+    }
+
     private void fillProductRepo() {
 //        URL url = this.getClass().getResource("EAN-List_csv_headers_modified_shortened.txt");
 //        File file = new File(String.valueOf(url));

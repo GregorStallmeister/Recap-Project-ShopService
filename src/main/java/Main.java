@@ -15,7 +15,7 @@ public class Main {
 
         while (!userInput.equals("q")) {
             System.out.println();
-            System.out.println("What do you want to do? You have uncountable possibilities in here!");
+            System.out.println("What do you want to do? You have uncountable opportunities in here!");
             System.out.println("Input p to see all products, o to place an order, s to see all orders, m to modify an order, r to remove an order.");
             System.out.println("And if you really really want: input q to quit.");
 
@@ -35,10 +35,12 @@ public class Main {
                     seeAllOrders();
                     break;
                 case "m":
-                    System.out.println("Not implemented - coming soon");
+                    System.out.println("Not implemented - coming later." +
+                            "\nUntil then please use the workaround: Remove your oder and create a new one with your modifications." +
+                            "\nWe are sorry for this inconvenience.");
                     break;
                 case "r":
-                    System.out.println("Not implemented - coming later");
+                    deleteOrder();
                     break;
                 default:
             }
@@ -91,6 +93,10 @@ public class Main {
 
     public static void seeAllOrders() {
         System.out.println(shopService.orderRepo.getAllOrders().toString().replaceAll("\\[", "\n["));
+    }
+
+    public static void deleteOrder() {
+        System.out.println("Pleas enter the ID of the order you would like to remove.");
     }
 }
 

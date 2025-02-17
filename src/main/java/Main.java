@@ -35,9 +35,12 @@ public class Main {
                     seeAllOrders();
                     break;
                 case "m":
-                    System.out.println("Not implemented - coming later." +
-                            "\nUntil then please use the workaround: Remove your oder and create a new one with your modifications." +
-                            "\nWe are sorry for this inconvenience.");
+                    System.out.println("""
+                            Not implemented - coming later.\
+                            
+                            Until then please use the workaround: Remove your oder and create a new one with your modifications.\
+                            
+                            We are sorry for this inconvenience.""");
                     break;
                 case "r":
                     deleteOrder();
@@ -110,7 +113,7 @@ public class Main {
 
     public static void deleteOrder() {
         Scanner scanner = new Scanner(System.in);
-        String userInput = "";
+        String userInput;
 
         System.out.println("Please enter the ID of the order you would like to remove.");
         userInput = scanner.nextLine();

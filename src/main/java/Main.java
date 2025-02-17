@@ -15,7 +15,7 @@ public class Main {
 
         while (!userInput.equals("q")) {
             System.out.println();
-            System.out.println("What do you want to do? You have uncountable possibilities in here!");
+            System.out.println("What do you want to do? You have uncountable opportunities in here!");
             System.out.println("Input p to see all products, o to place an order, s to see all orders, m to modify an order, r to remove an order.");
             System.out.println("And if you really really want: input q to quit.");
 
@@ -35,10 +35,15 @@ public class Main {
                     seeAllOrders();
                     break;
                 case "m":
-                    System.out.println("Not implemented - coming soon");
+                    System.out.println("""
+                            Not implemented - coming later.\
+                            
+                            Until then please use the workaround: Remove your oder and create a new one with your modifications.\
+                            
+                            We are sorry for this inconvenience.""");
                     break;
                 case "r":
-                    System.out.println("Not implemented - coming later");
+                    deleteOrder();
                     break;
                 default:
             }
@@ -54,7 +59,7 @@ public class Main {
 
     static void placeOrder() {
         String productEan;
-        int quantity;
+        int quantity = 0;
         Scanner userInputScanner = new Scanner(System.in);
         HashMap<Long, Integer> productIntegerHashMap = new HashMap<>();
 
@@ -67,14 +72,27 @@ public class Main {
                 break;
 
             System.out.println("Please enter the quantity you want to order");
-            quantity = Integer.parseInt(userInputScanner.nextLine());
+            try {
+                quantity = Integer.parseInt(userInputScanner.nextLine());
+            } catch (NumberFormatException e) {
+                System.out.println("Error: " + e.getMessage()
+                    + "\nQuantity will be set to 0");
+            }
 
             if (!productEan.isEmpty() && quantity > 0) {
-                Optional<Product> product = shopService.productRepo.getProduct(Long.parseLong(productEan));
+                try {
+                    Optional<Product> product = shopService.productRepo.getProduct(Long.parseLong(productEan));
 
-                if (product.isPresent())
-                    productIntegerHashMap.put(product.get().ean(), quantity);
-            } else
+                    if (product.isPresent())
+                        productIntegerHashMap.put(product.get().ean(), quantity);
+
+                } catch (NumberFormatException e) {
+                    System.out.println("Error: " + e.getMessage());
+                }
+            }
+            else if (quantity == 0)
+                System.out.println("Nothing ordered");
+            else
                 System.out.println("Product does not exist! We are sorry and hope you find another good choice.");
         }
 
@@ -91,6 +109,20 @@ public class Main {
 
     public static void seeAllOrders() {
         System.out.println(shopService.orderRepo.getAllOrders().toString().replaceAll("\\[", "\n["));
+    }
+
+    public static void deleteOrder() {
+        Scanner scanner = new Scanner(System.in);
+        String userInput;
+
+        System.out.println("Please enter the ID of the order you would like to remove.");
+        userInput = scanner.nextLine();
+
+        try {
+            shopService.removeOrder(Integer.parseInt(userInput));
+        } catch (NumberFormatException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
     }
 }
 

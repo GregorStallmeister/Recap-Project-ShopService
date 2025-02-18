@@ -3,6 +3,7 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 public class ShopService {
@@ -66,6 +67,17 @@ public class ShopService {
 
     public Order getOrder(int id) {
         return orderRepo.getOrder(id);
+    }
+
+    public void updateOrder(int id, OrderStatus newStatus) {
+        Order order = getOrder(id);
+
+        if (order == null)
+            throw new NoSuchElementException("Order not found!");
+
+        Order updatedOrder = order.withOrderStatus(newStatus);
+        removeOrder(id);
+        orderRepo.add(updatedOrder);
     }
 
     public void removeOrder(int orderID) {

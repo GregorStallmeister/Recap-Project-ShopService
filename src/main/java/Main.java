@@ -1,4 +1,5 @@
 import java.util.HashMap;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.Scanner;
 
@@ -16,7 +17,7 @@ public class Main {
         while (!userInput.equals("q")) {
             System.out.println();
             System.out.println("What do you want to do? You have uncountable opportunities in here!");
-            System.out.println("Input p to see all products, o to place an order, s to see all orders, m to modify an order, r to remove an order.");
+            System.out.println("Input p to see all products, o to place an order, s to see all orders, u to update an order, m to modify an order, r to remove an order.");
             System.out.println("And if you really really want: input q to quit.");
 
             Scanner scanner = new Scanner(System.in);
@@ -33,6 +34,9 @@ public class Main {
                     break;
                 case "s":
                     seeAllOrders();
+                    break;
+                case "u":
+                    updateOrder();
                     break;
                 case "m":
                     System.out.println("""
@@ -141,6 +145,44 @@ public class Main {
         try {
             shopService.removeOrder(Integer.parseInt(userInput));
         } catch (NumberFormatException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+
+    public static void updateOrder() {
+        Scanner scanner = new Scanner(System.in);
+        String userInput;
+        int orderID;
+
+        System.out.println("Please enter the id of the oder you want to modify.");
+        userInput = scanner.nextLine();
+
+        try {
+            orderID = Integer.parseInt(userInput);
+        } catch (NumberFormatException e) {
+            System.out.println("Error: " + e.getMessage());
+
+            return;
+        }
+
+        System.out.println("Please enter the new status the order shall have.");
+        System.out.println("p for processing, d for in delivery, c for completed.");
+        userInput = scanner.nextLine();
+
+        try {
+            switch (userInput) {
+                case "p":
+                    shopService.updateOrder(orderID, OrderStatus.PROCESSING);
+                    break;
+                case "d":
+                    shopService.updateOrder(orderID, OrderStatus.IN_DELIVERY);
+                    break;
+                case "c":
+                    shopService.updateOrder(orderID, OrderStatus.COMPLETED);
+                    break;
+            }
+        }
+        catch (NoSuchElementException e) {
             System.out.println("Error: " + e.getMessage());
         }
     }

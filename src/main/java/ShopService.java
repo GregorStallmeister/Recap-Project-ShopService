@@ -1,4 +1,5 @@
 
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Optional;
@@ -37,7 +38,7 @@ public class ShopService {
         int id = Integer.parseInt("" + LocalDateTime.now().getDayOfYear() + LocalDateTime.now().getHour()
                 + LocalDateTime.now().getMinute() + LocalDateTime.now().getSecond());
 
-        Order order = new Order(id, productIntegerHashMap);
+        Order order = new Order(id, productIntegerHashMap, OrderStatus.PROCESSING, Instant.now());
         orderRepo.add(order);
 
         return id;

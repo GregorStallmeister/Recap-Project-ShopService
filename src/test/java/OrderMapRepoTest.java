@@ -1,6 +1,7 @@
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
+import java.time.Instant;
 import java.util.HashMap;
 import java.util.List;
 
@@ -19,7 +20,7 @@ public class OrderMapRepoTest {
         int quantity = 12;
         HashMap<Product, Integer> productIntegerHashMap = new HashMap<Product, Integer>();
         productIntegerHashMap.put(product, quantity);
-        Order order = new Order(orderID, productIntegerHashMap);
+        Order order = new Order(orderID, productIntegerHashMap, OrderStatus.PROCESSING, Instant.now());
 
         // when
         orderMapRepo.add(order);
@@ -39,7 +40,7 @@ public class OrderMapRepoTest {
         int quantity = 12;
         HashMap<Product, Integer> productIntegerHashMap = new HashMap<Product, Integer>();
         productIntegerHashMap.put(product, quantity);
-        Order order = new Order(0, productIntegerHashMap);
+        Order order = new Order(0, productIntegerHashMap, OrderStatus.PROCESSING, Instant.now());
         int expectedSize = 1;
 
         // when
@@ -61,7 +62,7 @@ public class OrderMapRepoTest {
         int quantity = 12;
         HashMap<Product, Integer> productIntegerHashMap = new HashMap<Product, Integer>();
         productIntegerHashMap.put(product, quantity);
-        Order order = new Order(0, productIntegerHashMap);
+        Order order = new Order(0, productIntegerHashMap, OrderStatus.PROCESSING, Instant.now());
         orderMapRepo.add(order);
 
         // when
@@ -82,7 +83,7 @@ public class OrderMapRepoTest {
         int quantity = 12;
         HashMap<Product, Integer> productIntegerHashMap = new HashMap<Product, Integer>();
         productIntegerHashMap.put(product, quantity);
-        Order order = new Order(orderID, productIntegerHashMap);
+        Order order = new Order(orderID, productIntegerHashMap, OrderStatus.PROCESSING, Instant.now());
         int expectedSize = 1;
 
         // when

@@ -1,12 +1,15 @@
 
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.HashMap;
+import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 public class ShopService {
 
-    protected OrderRepo orderRepo;
-    protected ProductRepo productRepo;
+    private OrderRepo orderRepo;
+    private final ProductRepo productRepo;
 
     public ShopService() {
         this.productRepo = new ProductRepo();
@@ -17,6 +20,14 @@ public class ShopService {
         this();
 
         this.orderRepo = orderRepo;
+    }
+
+    public List<Product> getAllProducts() {
+        return productRepo.getAllProducts();
+    }
+
+    public Optional<Product> getProduct(long ean) {
+        return productRepo.getProduct(ean);
     }
 
     public int placeOrder(HashMap<Long, Integer> productEanQuantity) {
@@ -37,10 +48,36 @@ public class ShopService {
         int id = Integer.parseInt("" + LocalDateTime.now().getDayOfYear() + LocalDateTime.now().getHour()
                 + LocalDateTime.now().getMinute() + LocalDateTime.now().getSecond());
 
-        Order order = new Order(id, productIntegerHashMap);
+        Order order = new Order(id, productIntegerHashMap, OrderStatus.PROCESSING, Instant.now());
         orderRepo.add(order);
 
         return id;
+    }
+
+    public List<Order> getAllOrders() {
+        return orderRepo.getAllOrders();
+    }
+
+    public List<Order> getOrdersByStatus(OrderStatus orderStatus) {
+        return getAllOrders()
+                .stream()
+                .filter(order -> order.orderStatus().equals(orderStatus))
+                .toList();
+    }
+
+    public Order getOrder(int id) {
+        return orderRepo.getOrder(id);
+    }
+
+    public void updateOrder(int id, OrderStatus newStatus) {
+        Order order = getOrder(id);
+
+        if (order == null)
+            throw new NoSuchElementException("Order not found!");
+
+        Order updatedOrder = order.withOrderStatus(newStatus);
+        removeOrder(id);
+        orderRepo.add(updatedOrder);
     }
 
     public void removeOrder(int orderID) {

@@ -1,6 +1,7 @@
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
+import java.time.Instant;
 import java.util.HashMap;
 import java.util.List;
 
@@ -13,13 +14,13 @@ public class OrderMapRepoTest {
         // given
         OrderMapRepo orderMapRepo = new OrderMapRepo();
         int orderID = 0;
-        Product product = new Product(Long.valueOf("4023222992300"), "Märklin Electric Locomotive",
+        Product product = new Product(Long.parseLong("4023222992300"), "Märklin Electric Locomotive",
                 "Märklin", "HO", "Locomotive",
                 "Electric locomotive with sound", BigDecimal.valueOf(349.99), 2022);
         int quantity = 12;
-        HashMap<Product, Integer> productIntegerHashMap = new HashMap<Product, Integer>();
+        HashMap<Product, Integer> productIntegerHashMap = new HashMap<>();
         productIntegerHashMap.put(product, quantity);
-        Order order = new Order(orderID, productIntegerHashMap);
+        Order order = new Order(orderID, productIntegerHashMap, OrderStatus.PROCESSING, Instant.now());
 
         // when
         orderMapRepo.add(order);
@@ -33,13 +34,13 @@ public class OrderMapRepoTest {
     public void OrderMapRepoExpectedSize1WhenSameOrderAddedTwice() {
         // given
         OrderMapRepo orderMapRepo = new OrderMapRepo();
-        Product product = new Product(Long.valueOf("4023222992300"), "Märklin Electric Locomotive",
+        Product product = new Product(Long.parseLong("4023222992300"), "Märklin Electric Locomotive",
                 "Märklin", "HO", "Locomotive",
                 "Electric locomotive with sound", BigDecimal.valueOf(349.99), 2022);
         int quantity = 12;
-        HashMap<Product, Integer> productIntegerHashMap = new HashMap<Product, Integer>();
+        HashMap<Product, Integer> productIntegerHashMap = new HashMap<>();
         productIntegerHashMap.put(product, quantity);
-        Order order = new Order(0, productIntegerHashMap);
+        Order order = new Order(0, productIntegerHashMap, OrderStatus.PROCESSING, Instant.now());
         int expectedSize = 1;
 
         // when
@@ -55,13 +56,13 @@ public class OrderMapRepoTest {
     public void OrderMapRepoExpectedOrderContainedInListByGetAllOrders() {
         // given
         OrderMapRepo orderMapRepo = new OrderMapRepo();
-        Product product = new Product(Long.valueOf("4023222992300"), "Märklin Electric Locomotive",
+        Product product = new Product(Long.parseLong("4023222992300"), "Märklin Electric Locomotive",
                 "Märklin", "HO", "Locomotive",
                 "Electric locomotive with sound", BigDecimal.valueOf(349.99), 2022);
         int quantity = 12;
-        HashMap<Product, Integer> productIntegerHashMap = new HashMap<Product, Integer>();
+        HashMap<Product, Integer> productIntegerHashMap = new HashMap<>();
         productIntegerHashMap.put(product, quantity);
-        Order order = new Order(0, productIntegerHashMap);
+        Order order = new Order(0, productIntegerHashMap, OrderStatus.PROCESSING, Instant.now());
         orderMapRepo.add(order);
 
         // when
@@ -76,13 +77,13 @@ public class OrderMapRepoTest {
         // given
         OrderMapRepo orderMapRepo = new OrderMapRepo();
         int orderID = 0;
-        Product product = new Product(Long.valueOf("4023222992300"), "Märklin Electric Locomotive",
+        Product product = new Product(Long.parseLong("4023222992300"), "Märklin Electric Locomotive",
                 "Märklin", "HO", "Locomotive",
                 "Electric locomotive with sound", BigDecimal.valueOf(349.99), 2022);
         int quantity = 12;
-        HashMap<Product, Integer> productIntegerHashMap = new HashMap<Product, Integer>();
+        HashMap<Product, Integer> productIntegerHashMap = new HashMap<>();
         productIntegerHashMap.put(product, quantity);
-        Order order = new Order(orderID, productIntegerHashMap);
+        Order order = new Order(orderID, productIntegerHashMap, OrderStatus.PROCESSING, Instant.now());
         int expectedSize = 1;
 
         // when

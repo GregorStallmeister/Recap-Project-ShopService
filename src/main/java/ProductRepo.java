@@ -5,7 +5,7 @@ import java.util.Optional;
 
 public class ProductRepo {
 
-    protected List<Product> products;
+    private final List<Product> products;
 
     public ProductRepo() {
         products = new ArrayList<>();
@@ -51,7 +51,7 @@ public class ProductRepo {
     public void removeProduct(long ean) {
         Optional<Product> productToBeRemoved = getProduct(ean);
 
-        productToBeRemoved.ifPresent(product -> products.remove(product));
+        productToBeRemoved.ifPresent(products::remove);
     }
 
     public int size() {

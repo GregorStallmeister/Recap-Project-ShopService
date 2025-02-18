@@ -54,7 +54,7 @@ public class Main {
     }
 
     static void printAllProducts() {
-        System.out.println(shopService.productRepo.getAllProducts().toString().replaceAll("\\[", "\n["));
+        System.out.println(shopService.getAllProducts().toString().replaceAll("\\[", "\n["));
     }
 
     static void placeOrder() {
@@ -81,7 +81,7 @@ public class Main {
 
             if (!productEan.isEmpty() && quantity > 0) {
                 try {
-                    Optional<Product> product = shopService.productRepo.getProduct(Long.parseLong(productEan));
+                    Optional<Product> product = shopService.getProduct(Long.parseLong(productEan));
 
                     if (product.isPresent())
                         productIntegerHashMap.put(product.get().ean(), quantity);
@@ -108,7 +108,17 @@ public class Main {
     }
 
     public static void seeAllOrders() {
-        System.out.println(shopService.orderRepo.getAllOrders().toString().replaceAll("\\[", "\n["));
+        Scanner scanner = new Scanner(System.in);
+        String userInput = "";
+
+        System.out.println("Do you want to see all orders, regardless of the status or all of one specified status?");
+        System.out.println("Pleas type a for all, p for orders processing, d for orders in delivery, c for orders completed.");
+        userInput = scanner.nextLine();
+
+        switch (userInput) {
+            case "a":
+                System.out.println(shopService.getAllOrders().toString().replaceAll("\\[", "\n["));
+        }
     }
 
     public static void deleteOrder() {

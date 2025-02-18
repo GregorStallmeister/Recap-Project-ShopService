@@ -2,12 +2,13 @@
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Optional;
 
 public class ShopService {
 
-    protected OrderRepo orderRepo;
-    protected ProductRepo productRepo;
+    private OrderRepo orderRepo;
+    private final ProductRepo productRepo;
 
     public ShopService() {
         this.productRepo = new ProductRepo();
@@ -18,6 +19,14 @@ public class ShopService {
         this();
 
         this.orderRepo = orderRepo;
+    }
+
+    public List<Product> getAllProducts() {
+        return productRepo.getAllProducts();
+    }
+
+    public Optional<Product> getProduct(long ean) {
+        return productRepo.getProduct(ean);
     }
 
     public int placeOrder(HashMap<Long, Integer> productEanQuantity) {
@@ -42,6 +51,10 @@ public class ShopService {
         orderRepo.add(order);
 
         return id;
+    }
+
+    public List<Order> getAllOrders() {
+        return orderRepo.getAllOrders();
     }
 
     public void removeOrder(int orderID) {

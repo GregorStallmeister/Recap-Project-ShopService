@@ -57,6 +57,13 @@ public class ShopService {
         return orderRepo.getAllOrders();
     }
 
+    public List<Order> getOrdersByStatus(OrderStatus orderStatus) {
+        return getAllOrders()
+                .stream()
+                .filter(order -> order.orderStatus().equals(orderStatus))
+                .toList();
+    }
+
     public Order getOrder(int id) {
         return orderRepo.getOrder(id);
     }

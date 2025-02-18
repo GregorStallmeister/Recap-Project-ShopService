@@ -119,8 +119,14 @@ public class Main {
             case "a":
                 System.out.println(shopService.getAllOrders().toString().replaceAll("\\[", "\n["));
                 break;
-            case "p", "d", "c":
-                System.out.println("Coming soon");
+            case "p":
+                System.out.println(shopService.getOrdersByStatus(OrderStatus.PROCESSING).toString().replaceAll("\\[", "\n["));
+                break;
+            case "d":
+                System.out.println(shopService.getOrdersByStatus(OrderStatus.IN_DELIVERY).toString().replaceAll("\\[", "\n["));
+                break;
+            case "c":
+                System.out.println(shopService.getOrdersByStatus(OrderStatus.COMPLETED).toString().replaceAll("\\[", "\n["));
                 break;
         }
     }

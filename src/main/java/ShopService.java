@@ -57,6 +57,10 @@ public class ShopService {
         return orderRepo.getAllOrders();
     }
 
+    public Order getOrder(int id) {
+        return orderRepo.getOrder(id);
+    }
+
     public void removeOrder(int orderID) {
         orderRepo.removeOrder(orderID);
     }

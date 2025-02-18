@@ -5,7 +5,7 @@ import java.util.Optional;
 
 public class ProductRepo {
 
-    private List<Product> products;
+    private final List<Product> products;
 
     public ProductRepo() {
         products = new ArrayList<>();

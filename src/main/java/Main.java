@@ -109,7 +109,7 @@ public class Main {
 
     public static void seeAllOrders() {
         Scanner scanner = new Scanner(System.in);
-        String userInput = "";
+        String userInput;
 
         System.out.println("Do you want to see all orders, regardless of the status or all of one specified status?");
         System.out.println("Pleas type a for all, p for orders processing, d for orders in delivery, c for orders completed.");
@@ -118,6 +118,10 @@ public class Main {
         switch (userInput) {
             case "a":
                 System.out.println(shopService.getAllOrders().toString().replaceAll("\\[", "\n["));
+                break;
+            case "p", "d", "c":
+                System.out.println("Coming soon");
+                break;
         }
     }
 
